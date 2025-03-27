@@ -9,7 +9,7 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/anzeige"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Fangen sie an zu tippen..."
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginBottom="30dp"
-        android:onClick="deleteAll"
+        android:onClick="onClear"
         android:text="AC"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,8 +37,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
-        android:onClick="klammerSetzen"
-        android:text="( )"
+        android:onClick="addNumOrOperator"
+        android:text="("
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ac"
         app:layout_constraintTop_toTopOf="parent" />
@@ -48,8 +48,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
-        android:onClick="prozentRechnen"
-        android:text="%"
+        android:onClick="addNumOrOperator"
+        android:text=")"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/klammer"
         app:layout_constraintTop_toTopOf="parent" />
@@ -59,7 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
-        android:onClick="geteiltRechnen"
+        android:onClick="addNumOrOperator"
         android:text="/"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/prozent"
@@ -71,7 +71,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginTop="30dp"
-        android:onClick="siebenSetzen"
+        android:onClick="addNumOrOperator"
         android:text="7"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ac" />
@@ -81,7 +81,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:onClick="achtSetzen"
+        android:onClick="addNumOrOperator"
         android:text="8"
         app:layout_constraintStart_toEndOf="@+id/num7"
         app:layout_constraintTop_toBottomOf="@+id/klammer" />
@@ -91,7 +91,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:onClick="neunSetzen"
+        android:onClick="addNumOrOperator"
         android:text="9"
         app:layout_constraintStart_toEndOf="@+id/num8"
         app:layout_constraintTop_toBottomOf="@+id/prozent" />
@@ -101,7 +101,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:onClick="malRechnen"
+        android:onClick="addMultiple"
         android:text="x"
         app:layout_constraintStart_toEndOf="@+id/num9"
         app:layout_constraintTop_toBottomOf="@+id/geteilt" />
@@ -112,7 +112,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginTop="30dp"
-        android:onClick="vierSetzen"
+        android:onClick="addNumOrOperator"
         android:text="4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/num7" />
@@ -123,7 +123,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginTop="30dp"
-        android:onClick="einsSetzen"
+        android:onClick="addNumOrOperator"
         android:text="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/num4" />
@@ -134,7 +134,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginTop="30dp"
-        android:onClick="nullSetzen"
+        android:onClick="addNumOrOperator"
         android:text="0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/num1" />
@@ -144,7 +144,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:onClick="fuenfSetzen"
+        android:onClick="addNumOrOperator"
         android:text="5"
         app:layout_constraintStart_toEndOf="@+id/num4"
         app:layout_constraintTop_toBottomOf="@+id/num8" />
@@ -154,7 +154,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:onClick="sechsSetzen"
+        android:onClick="addNumOrOperator"
         android:text="6"
         app:layout_constraintStart_toEndOf="@+id/num5"
         app:layout_constraintTop_toBottomOf="@+id/num9" />
@@ -164,7 +164,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:onClick="minusRechnen"
+        android:onClick="addNumOrOperator"
         android:text="-"
         app:layout_constraintStart_toEndOf="@+id/num6"
         app:layout_constraintTop_toBottomOf="@+id/mal" />
@@ -174,7 +174,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:onClick="vierSetzen"
+        android:onClick="addNumOrOperator"
         android:text="2"
         app:layout_constraintStart_toEndOf="@+id/num1"
         app:layout_constraintTop_toBottomOf="@+id/num5" />
@@ -184,7 +184,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:onClick="dreiSetzen"
+        android:onClick="addNumOrOperator"
         android:text="3"
         app:layout_constraintStart_toEndOf="@+id/num2"
         app:layout_constraintTop_toBottomOf="@+id/num6" />
@@ -194,7 +194,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:onClick="plusRechnen"
+        android:onClick="addNumOrOperator"
         android:text="+"
         app:layout_constraintStart_toEndOf="@+id/num3"
         app:layout_constraintTop_toBottomOf="@+id/minus" />
@@ -204,7 +204,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:onClick="punktSetzen"
+        android:onClick="addNumOrOperator"
         android:text="."
         app:layout_constraintStart_toEndOf="@+id/num0"
         app:layout_constraintTop_toBottomOf="@+id/num2" />
@@ -214,7 +214,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:onClick="deleteEinzeln"
+        android:onClick="einzelClear"
         android:text="DEL"
         app:layout_constraintStart_toEndOf="@+id/point"
         app:layout_constraintTop_toBottomOf="@+id/num3" />
@@ -224,7 +224,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:onClick="ergebnisAnzeigen"
+        android:onClick="berechneAnzeige"
         android:text="="
         app:layout_constraintStart_toEndOf="@+id/delete"
         app:layout_constraintTop_toBottomOf="@+id/plus" />

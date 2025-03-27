@@ -1,6 +1,8 @@
 package com.example.mobilesytemestarter;
 
+import android.content.Context;
 import android.os.Bundle;
+import org.mozilla.javascript.Scriptable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,9 +15,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button meinButton;
+    private TextView anzeige;
 
-    private TextView meinText;
+    StringBuilder expression = new StringBuilder();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,10 +29,52 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        meinButton = (Button) findViewById(R.id.ac);
-        meinText = (TextView) findViewById(R.id.textView);
-        meinText.setText("hello World");
+
+        anzeige = findViewById(R.id.anzeige);
 
     }
-    public void winf(View v) {meinText.setText("Ich wurde geklickt");}
+
+    public void addNumOrOperator(View v) {
+        Button b = (Button) v;
+        expression.append(b.getText());
+        anzeige.setText(expression.toString());
+    }
+
+    public void addMultiple(View v) {
+        expression.append("*");
+        anzeige.setText(expression.toString());
+    }
+
+
+    public void onClear(View v) {
+        expression.setLength(0);
+        anzeige.setText("Fangen sie an zu tippen...");
+    }
+
+    public void einzelClear(View v) {
+        if (expression.length() > 0) {
+            expression.deleteCharAt(expression.length() - 1);
+            anzeige.setText(expression.toString());
+        }
+    }
+
+    public void berechneAnzeige(View view) {
+        try {
+            org.mozilla.javascript.Context rhino = org.mozilla.javascript.Context.enter();
+            rhino.setOptimizationLevel(-1);
+
+            Scriptable scope = rhino.initStandardObjects();
+            String result = rhino.evaluateString(scope, expression.toString(), "JavaScript", 1, null).toString();
+
+            anzeige.setText(result);
+            expression.setLength(0);
+            expression.append(result);
+        } catch (Exception e) {
+            anzeige.setText("Fehler");
+            expression.setLength(0);
+        } finally {
+            org.mozilla.javascript.Context.exit();
+        }
+    }
+
 }
