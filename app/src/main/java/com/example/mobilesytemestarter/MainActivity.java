@@ -19,6 +19,12 @@ public class MainActivity extends AppCompatActivity {
 
     StringBuilder expression = new StringBuilder();
 
+    String memory1 = null;
+
+    String memory2 = null;
+
+    boolean toggleMemorySlot = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,13 +64,64 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void leerzeichen(View v) {
+        expression.append(" ");
+        anzeige.setText(expression.toString());
+    }
+
+    public void memorySave(View v) {
+        String current = anzeige.getText().toString();
+        if (!current.equals("Fehler") && !current.isEmpty()) {
+            if (toggleMemorySlot) {
+                memory2 = current;
+                anzeige.setText("Gespeichert: M2");
+            } else {
+                memory1 = current;
+                anzeige.setText("Gespeichert: M1");
+            }
+            toggleMemorySlot = !toggleMemorySlot; // Beim nächsten Klick wird gewechselt
+        }
+    }
+
+    public void memoryRead(View v) {
+        String recalled = toggleMemorySlot ? memory2 : memory1;
+        if (recalled != null) {
+            expression.append(recalled).append(" ");
+            anzeige.setText(expression.toString());
+            toggleMemorySlot = !toggleMemorySlot;
+        } else {
+            anzeige.setText("Kein Wert in M" + (toggleMemorySlot ? "2" : "1"));
+        }
+    }
+
+    public boolean memoryReadLong(View v) {
+        StringBuilder sb = new StringBuilder();
+        if (memory1 != null) sb.append("M1: ").append(memory1).append("\n");
+        if (memory2 != null) sb.append("M2: ").append(memory2);
+        if (sb.length() == 0) {
+            anzeige.setText("Kein Verlauf");
+        } else {
+            anzeige.setText(sb.toString());
+        }
+        return true; // true = Langklick wurde behandelt
+    }
+
+
     public void berechneAnzeige(View view) {
         try {
+            String[] tokens = expression.toString().trim().split("\\s+");
+            String infix = UPNToInfixConverter.convertToInfix(tokens);
+
+            if (infix.equals("ERROR")) {
+                anzeige.setText("Fehler");
+                expression.setLength(0);
+                return;
+            }
+
             org.mozilla.javascript.Context rhino = org.mozilla.javascript.Context.enter();
             rhino.setOptimizationLevel(-1);
-
             Scriptable scope = rhino.initStandardObjects();
-            String result = rhino.evaluateString(scope, expression.toString(), "JavaScript", 1, null).toString();
+            String result = rhino.evaluateString(scope, infix, "JavaScript", 1, null).toString();
 
             anzeige.setText(result);
             expression.setLength(0);
@@ -78,3 +135,4 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
+
